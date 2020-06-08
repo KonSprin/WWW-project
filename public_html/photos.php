@@ -1,6 +1,11 @@
 <!-- Plik ten składa się z dwóch częsci. 
 	Pierwszą z nich jest galeria, która pobiera z bazy danych wszystkie lokalizacje zdjęć i wyświwtla je pokolei -->
 
+<div class="row" id="buttons">
+	<button type="button" onclick="crop();" class="btn btn-outline-dark">Wytnij!</button>
+	<button type="button" onclick="uncrop();" class="btn btn-outline-dark">Dopasuj!</button>
+</div>
+
 <div class="row" id="gallery" data-toggle="modal" data-target="#modal">
 	<?php
 		// jeżeli podana jest zmienna show, to znaczy, że chcemy wyświetlać tylko zdjęcia z danej kategorii
@@ -90,3 +95,23 @@
 </div>
 </div>
 </div>
+
+<!-- Dwie funkcje, które zmieniają zachowanie obrazków w galerii
+	pierwsza sprawia, że zdjęcia zostają wycięte, a druga, że zmniejszone i dopasowane -->
+<script>
+	function crop(){
+		var gallery = document.getElementById('gallery');
+
+		for ( let item of gallery.getElementsByTagName('div')) {
+			item.classList.add("crop");
+		}
+	}
+	function uncrop(){
+		var gallery = document.getElementById('gallery');
+
+		for ( let item of gallery.getElementsByTagName('div')) {
+			item.classList.remove("crop");
+		}
+	}
+
+</script>
