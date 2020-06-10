@@ -1,7 +1,7 @@
 <div class="card-body">
 	<?php
 		// Prosty formulaż rejestracyjny, w którym wystarzcy podać email i hasło
-
+		// Wszystko zostało tak jak po laboratorium z Panem Zaworskim
 		if (!defined('IN_INDEX')) { exit("Nie można uruchomić tego pliku bezpośrednio."); }
 
 		if (isset($_POST['mail']) && isset($_POST['passwd']) && isset($_POST['g-recaptcha-response'])) {

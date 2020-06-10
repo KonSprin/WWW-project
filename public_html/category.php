@@ -5,6 +5,7 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Wybierz Kategorię</h3>
+                <!-- Bardzo podobny przycisk jak na głównej stornie. Ten jednak nie musi aktualizować nazwy -->
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Kategoria

@@ -2,9 +2,37 @@
 	Pierwszą z nich jest galeria, która pobiera z bazy danych wszystkie lokalizacje zdjęć i wyświwtla je pokolei -->
 
 <div class="row" id="buttons">
+	<!-- Dwa przyciski zmieniające zachowanie się miniaturek zdjęć -->
 	<button type="button" onclick="crop();" class="btn btn-outline-dark">Wytnij!</button>
 	<button type="button" onclick="uncrop();" class="btn btn-outline-dark">Dopasuj!</button>
+	<!-- Przycisk, dzięki któremu możemy nawigowac po kategoriach -->
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<!-- Jeżeli wybierzemy jakąś kategorię, to przycisk zmieni "nazwę", w przeciwnym wypadku wyświetla się "Kategoria" -->
+			<?php if (isset($_GET['show']) && intval($_GET['show']) > 0) {
+				$id = intval($_GET['show']);
+				$stmt = $dbh->prepare("SELECT * FROM categories WHERE id = :id");
+				$stmt -> execute([':id' => $id]);
+				$category = $stmt->fetch();
+				print $category['name'];
+			}else { 
+				print 'Kategoria';
+			}?>
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<!-- pobieramy z bazy danych wszystkie kategorie, aby nie musieć aktualizować ręcznie za każdym razem jak dodamy nową -->
+			<?php
+				$stmt = $dbh->prepare("SELECT * FROM categories");
+				$stmt -> execute();
+				
+				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+					print '<a class="dropdown-item" href="/photos/show/'. $row['id'] .'">'. $row['name'] .'</a>';
+				}  
+			?>
+		</div>
+	</div>
 </div>
+
 
 <div class="row" id="gallery" data-toggle="modal" data-target="#modal">
 	<?php
@@ -21,7 +49,7 @@
 		$number = 0;
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			print '
-				<div class="col-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="col-12 col-sm-6 col-md-3 col-lg-3 crop">
 					<a class="black-text" href="https://s58.labwww.pl/' . $row['file_name'] . '" data-target="#carousel" data-slide-to="' .$number. '">
 						<img class="w-100" src="https://s58.labwww.pl/' . $row['file_name'] . '">
 						<h3 class="text-center">' . htmlspecialchars($row['title'], ENT_QUOTES | ENT_HTML401, 'UTF-8') . '</h3>
