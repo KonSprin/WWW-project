@@ -2,7 +2,8 @@
 	<div class="card-body">
 		<?php
 			if (!defined('IN_INDEX')) { exit("Nie można uruchomić tego pliku bezpośrednio."); }
-
+				
+			// generalnie idea jest taka, że samo zdjęcie dodajemy do folderu galery bezpośrednio na serwerze, a jego nazwę tytuł itp sysyłamy do bazy danych
 			if (isset($_POST['submit'])) {
 				if (isset($_POST['title']) && mb_strlen($_POST['title']) > 2) {
 					$file = $_FILES['file'];
